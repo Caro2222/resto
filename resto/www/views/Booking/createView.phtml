@@ -1,0 +1,23 @@
+<h2>Réservation</h2>
+<form method="POST" class="formRequired">
+    <label>Date de la réservation</label>
+    <div class="form-group">
+        <div class="input-group date" id="datetimepicker6" data-target-input="nearest">
+            <input name="date"  type="text" class="form-control datetimepicker-input inputRequired" data-target="#datetimepicker6" data-toggle="datetimepicker"/>
+            <div class="input-group-append" data-target="#datetimepicker6" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+        </div>
+    </div>
+    <label>Service</label>
+    <select id="service" name="service" class="form-control">
+        <option value="midi">midi</option>
+        <option value="soir">soir</option>
+    </select>
+    <label>Nombre de place </label>
+
+    <input name="place" type="number" id="place" class="form-control inputRequired" >
+    <input type="submit" value="reserver" id="btn_submit">
+
+</form>
+

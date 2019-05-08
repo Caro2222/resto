@@ -1,0 +1,8 @@
+<h3> Se connecter </h3>
+<form method="POST" action="<?=$router->generatePath("resto_user_login")?> " >
+<input type="email" placeholder="email" name="email" >
+<input type="password" placeholder="password" name="password">
+<input type="submit" value="login">
+</form>
+<p>pas encore membre ?</p>
+<a href="<?=$router->generatePath("resto_user_inscription") ?>">Crée un compte</a>

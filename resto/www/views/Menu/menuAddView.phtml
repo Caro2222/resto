@@ -1,0 +1,37 @@
+<h2><?= $title ?></h2>
+<form method="POST"  class="container-fluid col-sm-10 formRequired">
+    <div class="form-group ">
+        <label for="title" >Titre du menu</label>
+        <input  autocomplete="off"  type="text" name="title" id="title" class="form-control inputRequired">
+    </div>
+    <div class="form-group ">
+        <?php foreach($allPlats as $plat) :?>
+
+            <input  type="checkbox" id="plates" name="plates[]" value="<?= $plat["plates_id"] ?>" >
+            <label  for="<?=$plat["plates_id"] ?>"><?=$plat['product'] ?></label><br>
+
+        <?php endforeach; ?>
+    </div>
+
+    <div class="form-group">
+    <label>Contenu du menu</label>
+    <textarea autocomplete="off" class="form-control inputRequired" id="content" name="content"></textarea>
+    </div>
+    <div class="form-row">
+    <div class="form-group col-md-4">
+    <label>prix du menu</label>
+    <input class="inputRequired" class="form-control" type="text" name="price_menu" id="price_menu">
+    </div>
+
+        <div class="form-group col-md-4">
+        <label>date du debut</label>
+        <input class="form-control inputRequired" type="date" name="startDate" id="startDate"  >
+        </div>
+        <div class="form-group col-md-4">
+        <label>date de fin</label>
+
+        <input class="form-control inputRequired" type="date" name="endDate" id="endDate"  >
+        </div>
+    </div>
+    <input class="btn btn-info" type="submit" value="sauver">
+</form>

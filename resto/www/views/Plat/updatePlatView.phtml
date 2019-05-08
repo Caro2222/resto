@@ -1,0 +1,44 @@
+<h1><?= $title ?></h1>
+
+<form action="<?=$router->generatePath("resto_plat_update")?>" method="POST" class="container-fluid col-sm-10" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="namePlat">Le nom du plat</label>
+        <input type="text" id="namePlat" name="product" value="<?=htmlspecialchars($plat['product']) ?>" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>description du plat</label>
+        <textarea class="form-control" rows="3" cols="50" id="product_description" name="product_description"><?=htmlspecialchars($plat['product_description']) ?></textarea>
+    </div>
+    <div class="form-group">
+        <label for="ingredient">Les ingredients</label>
+        <textarea class="form-control" rows="3" cols="50" id="ingredient" name="ingredient"><?=htmlspecialchars($plat['ingredient']) ?></textarea>
+    </div>
+    <div class="form-group">
+        <label for="price">le prix</label>
+        <input class="form-control" type="text" id="price" name="price" value="<?=htmlspecialchars($plat['price']) ?>">
+    </div>
+    <div class="form-group">
+        <?php if($plat['photo']): ?>
+        <img src="<?php $plat['photo']  ?>">
+        <input type="checkbox" name="img_suppr">
+        <label>Supprimer l'image</label>
+        <?php else : ?>
+        <p>Pas encore d'image</p>
+        <?php endif; ?>
+        <label for="photo">Url de la photo</label>
+        <input class="form-control" type="file" id="photo" name="photo" value="<?=htmlspecialchars($plat['photo']) ?>">
+    </div>
+    <div class="form-group">
+        <label for="category">Choix de la categorie</label>
+        <select class="form-control" id="category" name="category" >
+
+            <option value="entrée" >entrée </option>
+            <option value="plat principal">plat principal </option>
+            <option value="dessert">dessert</option>
+
+        </select>
+    </div>
+    <br>
+    <input name="id"  value="<?=$plat['plates_id']?>" hidden="hidden" class="form-control" >
+    <input type="submit" value="modifier" >
+</form>

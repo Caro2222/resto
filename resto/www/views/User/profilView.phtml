@@ -1,0 +1,33 @@
+<h2>Mon compte</h2>
+<?php var_dump($seatDispo); ?>
+<p>Prenom : <?=  $userSession->getFirstName(); ?> </p>
+<p>nom : <?=  $userSession->getLastName(); ?></p>
+<p>email : <?=  $userSession->getEmail(); ?> </p>
+
+
+<table class="table row ">
+    <tr>
+        <th>date de la reservation</th>
+        <th>service</th>
+        <th>nombre de place reservé</th>
+    </tr>
+    <?php foreach ($allResa as $resa): ?>
+
+    <tr>
+        <td><?= $resa['dateResa'] ?></td>
+        <td><?= $resa['service'] ?></td>
+        <td><?= $resa['placesDemandees'] ?></td>
+        <?php if($resa['cancelled']== 0): ?>
+        <td><a href="<?=$router->generatePath("resto_user_update") ?>?booking_id=<?=$resa['booking_id'] ?>">annulé la reservation</a> </td>
+        <?php else: ?>
+        <td>Reservation annulée</td>
+        <?php endif; ?>
+        <td><?php $endTab =explode('-',$resa['dateResa']);
+                    $end = mktime(0,0,0,$endTab[1],$endTab[2],$endTab[0]);
+                    $now= mktime(0,0,0,date('n'),date('j'),date('y'));
+                    if($now>$end) : ?> date depassée <?php endif; ?></td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+
+

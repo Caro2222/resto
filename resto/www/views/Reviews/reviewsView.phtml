@@ -1,0 +1,14 @@
+<H2>Vos avis</H2>
+<?php var_dump($allReviews) ?>
+
+<?php foreach ($allReviews as $review) : ?>
+<p><?= $review['comment'] ?></p>
+<p><?= $review['FirstName']?> <?=$review['LastName']?> sur le <?= $review['title'] ?> le <?=(new DateTime($review["dateCreation"]))->format("d/m/Y");?></p>
+    <div class="stars">
+        <p>Note du menu :
+        <?php for($i=0;$i<$review['note'];$i++){ ?>
+        <i class="fa fa-star gold"></i>
+        <?php }?>
+        </p>
+    </div>
+<?php endforeach;?>

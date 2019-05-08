@@ -1,0 +1,19 @@
+<h2><?=$title ?></h2>
+<table class="table row ">
+    <th>
+        <td>date de reservation </td>
+        <td>service</td>
+        <td>nombre de client</td>
+    </th>
+    <?php foreach ($allResa as $resa): ?>
+    <tr>
+        <td><?=htmlspecialchars($resa['user_id']) ?></td>
+
+        <td><?=htmlspecialchars($resa['dateResa']) ?></td>
+        <td><?=htmlspecialchars($resa['service']) ?></td>
+        <td><?=htmlspecialchars($resa['placesDemandees']) ?></td>
+
+
+    </tr>
+    <?php endforeach; ?>
+</table>

@@ -1,0 +1,101 @@
+
+ <h1><?= $title ?></h1>
+<div class="container">
+    <?php if($userSession->isAdmin()): ?>
+    <a href="<?=$router->generatePath("resto_plat_add") ?>">Ajouter un plat</a>
+    <?php endif; ?>
+ <table class="table row ">
+     <button class="btn btnEntree">Entrée</button>
+     <button class="btn btnplat">Plat principal</button>
+     <button class="btn btnDessert">Dessert</button>
+
+
+<?php foreach ($allPlats as $plat) : ?>
+
+
+
+    <?php if($plat['category']=='entrée'): ?>
+
+        <tr class="plat-container entree">
+
+            <td><a href="<?=$router->generatePath("resto_plat_detail") ?>?id=<?=$plat['plates_id'] ?>"><?=htmlspecialchars( $plat['product']) ?></a></td>
+
+            <td class="p-3"><?= htmlspecialchars( $plat['product_description']) ?><br>
+                <p class="my-5"> <?=htmlspecialchars($plat['price']) ?> € </p>
+                <?php if($userSession->isAdmin()): ?>
+                    <button id="removeInput-<?= $plat["plates_id"]?>" class="remove-button" data-action="<?= $router->generatePath("resto_plat_removeAjax")?>" data-id = "<?= $plat["plates_id"]?>">Supprimer</button>
+                    <!--<a href="<?/*=$router->generatePath("resto_plat_delete") */?>?id=<?/*=$plat['plates_id'] */?>">Supprimer le plat</a><br>-->
+                    <a href="<?=$router->generatePath("resto_plat_update") ?>?id=<?=$plat['plates_id'] ?>">Modifier le plat</a>
+                <?php endif; ?>
+            </td>
+            <td>
+                <?php if($plat['photo']): ?>
+                    <img src="<?= $router->getWwwPath() ?>/upload/photosPlats/<?=$plat['photo'] ?>" >
+                <?php else: ?>
+                    <img src="<?= $router->getWwwPath() ?>/image/default-plat.jpg" >
+                <?php endif ?>
+            </td>
+
+
+        </tr>
+    <?php endif; ?>
+    <?php if($plat['category']=='plat principal'): ?>
+
+
+        <tr class="plat-container plat">
+
+            <td><a href="<?=$router->generatePath("resto_plat_detail") ?>?id=<?=$plat['plates_id'] ?>"><?=htmlspecialchars( $plat['product']) ?></a></td>
+
+            <td class="p-3"><?= htmlspecialchars( $plat['product_description']) ?><br>
+                <p class="my-5"> <?=htmlspecialchars($plat['price']) ?> € </p>
+                <?php if($userSession->isAdmin()): ?>
+                <button id="removeInput-<?= $plat["plates_id"]?>" class="remove-button" data-action="<?= $router->generatePath("resto_plat_removeAjax")?>" data-id = "<?= $plat["plates_id"]?>">Supprimer</button>
+                <!--<a href="<?/*=$router->generatePath("resto_plat_delete") */?>?id=<?/*=$plat['plates_id'] */?>">Supprimer le plat</a><br>-->
+
+                <a href="<?=$router->generatePath("resto_plat_update") ?>?id=<?=$plat['plates_id'] ?>">Modifier le plat</a>
+                 <?php endif; ?>
+            </td>
+            <td>
+                <?php if($plat['photo']): ?>
+                    <img src="<?= $router->getWwwPath() ?>/upload/photosPlats/<?=$plat['photo'] ?>" >
+                <?php else: ?>
+                    <img src="<?= $router->getWwwPath() ?>/image/default-plat.jpg" >
+                <?php endif ?>
+            </td>
+
+
+        </tr>
+    <?php endif; ?>
+
+    <?php if($plat['category']=='dessert'): ?>
+
+
+        <tr class="plat-container dessert">
+
+            <td><a href="<?=$router->generatePath("resto_plat_detail") ?>?id=<?=$plat['plates_id'] ?>"><?=htmlspecialchars( $plat['product']) ?></a></td>
+
+            <td class="p-3"><?= htmlspecialchars( $plat['product_description']) ?><br>
+                <p class="my-5"> <?=htmlspecialchars($plat['price']) ?> € </p>
+                <?php if($userSession->isAdmin()): ?>
+                <button id="removeInput-<?= $plat["plates_id"]?>" class="remove-button" data-action="<?= $router->generatePath("resto_plat_removeAjax")?>" data-id = "<?= $plat["plates_id"]?>">Supprimer</button>
+                <!--<a href="<?/*=$router->generatePath("resto_plat_delete") */?>?id=<?/*=$plat['plates_id'] */?>">Supprimer le plat</a><br>-->
+                <a href="<?=$router->generatePath("resto_plat_update") ?>?id=<?=$plat['plates_id'] ?>">Modifier le plat</a>
+                 <?php endif ?>
+            </td>
+            <td>
+                <?php if($plat['photo']): ?>
+                    <img src="<?= $router->getWwwPath() ?>/upload/photosPlats/<?=$plat['photo'] ?>" >
+                <?php else: ?>
+                    <img src="<?= $router->getWwwPath() ?>/image/default-plat.jpg" >
+                <?php endif ?>
+            </td>
+
+
+        </tr>
+    <?php endif; ?>
+
+<?php endforeach; ?>
+
+ </table>
+
+</div>
