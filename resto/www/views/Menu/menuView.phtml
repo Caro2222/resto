@@ -27,7 +27,7 @@
                     <input name="id"  value="<?=$menu['menu_id']?>" hidden="hidden" class="form-control" >
                     <input type="submit" value="ajouter au panier" >
                 </form>
-                <a  href="<?=$router->generatePath("resto_Order_create")?>?id=<?=$menu['menu_id'] ?>"  class="btn btn-info">Commander ce menu</a><br>
+                <a  href="<?=$router->generatePath("resto_Order_add")?>?id=<?=$menu['menu_id'] ?>"  class="btn btn-info">Commander ce menu</a><br>
                 <?php if($userSession->isAdmin()): ?>
                 <button id="removeInput-<?= $menu["menu_id"]?>" class="remove-button" data-action="<?= $router->generatePath("resto_menu_remove")?>" data-id = "<?= $menu["menu_id"]?>">Supprimer</button>
                 <!--<a href="<?/*=$router->generatePath("resto_menu_delete") */?>?id=<?/*=$menu['menu_id'] */?>">Supprimer le plat</a>-->

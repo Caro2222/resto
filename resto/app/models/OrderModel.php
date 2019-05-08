@@ -7,13 +7,17 @@ class OrderModel
 
         $pdo = (new Database())->getPdo();
         $query = $pdo->prepare(
-            "INSERT INTO order_details (order_id, quantityOrdered,menu_id)                      
-                        VALUES  (:order_id, :quantityOrdered,:menu_id");
-        $query->execute(["order_id" => $order_id,
-            "quantityOrdered" => $quantityOrdered,
-            "menu_id"=>$menu_id,
+            "INSERT INTO orders_details (order_id, quantityOrdered,menu_id)                      
+                        VALUES  (:order_id, :quantityOrdered,:menu_id)");
+        foreach ($quantityOrdered as $quantity ) {
+            $query->execute(["order_id" => $order_id,
 
-        ]);
+                "quantityOrdered" => $quantity,
+
+                "menu_id" => $menu_id,
+
+            ]);
+        }
         return $pdo->lastInsertId();
     }
 
@@ -22,7 +26,7 @@ class OrderModel
         $pdo = (new Database())->getPdo();
         $query = $pdo->prepare(
             "INSERT INTO orders (user_id,DeliveryDate,OrdersDate,payed)                      
-                        VALUES  ( :user_id,:deliveryDate,NOW(),:payed");
+                        VALUES  ( :user_id,:deliveryDate,NOW(),:payed)");
         $query->execute([
             "user_id"=>$user_id,
             "deliveryDate" =>$deliveryDate,

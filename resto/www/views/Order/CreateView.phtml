@@ -14,12 +14,13 @@
         <td><?= $order['title'] ?></td>
         <td><form method="post" action="<?=$router->generatePath("resto_Order_create")?>">
                 <label>quantity</label>
-                <input type="number" name="quantity" id="quantity" placeholder="">
+                <input type="number" name="quantity[]" id="quantity" placeholder="">
 
             </td>
     </tr>
+        <input type="submit" value="<?=$order['menu_id']?>" hidden="hidden">
     <?php endforeach ?>
-        <input type="submit" value="valider" hidden="hidden">
+
     </table>
 
     <div>

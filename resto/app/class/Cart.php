@@ -26,7 +26,7 @@ class Cart
 
 
     }
-    public function getQuantity($quantity=0)
+    public function getQuantity($quantity)
     {
         array_push($_SESSION['cart']['quantity'], $quantity);
         return $_SESSION["cart"]["quantity"];
@@ -35,8 +35,8 @@ class Cart
     public function count(){
         return array_sum($_SESSION['panier']);
     }
-    public function del($product_id){
-        unset($_SESSION['panier'][$product_id]);
+    public function del($menu_id){
+        unset($_SESSION['panier'][$menu_id]);
     }
 }
 
