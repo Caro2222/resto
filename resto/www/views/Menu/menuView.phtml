@@ -6,44 +6,63 @@
 <?php endif; ?>
 <section class="menu container">
     <div class="row">
-        <div class="col-md-9">
-        <?php foreach ($allMenus as $menu) :?>
 
-            <div class="plat-container ">
+            <table class="table row">
+                <tr>
+                <td>menu</td>
+                <td>plat</td>
+                <td>supplement</td>
+                <td>prix</td>
+                </tr>
+                <?php foreach ($allMenus as $menu) :?>
+                <tr>
+                    <td><?=htmlspecialchars($menu["title"] )?></td>
+
+                    <td>
+                    <?php foreach ($allPlats[$menu['menu_id']] as $plat) : ?>
+
+                        <P> <?=htmlspecialchars($plat['product'] ) ?></P>
+
+                    <?php endforeach; ?>
+                    </td>
+                    <td><?=nl2br(htmlspecialchars($menu["content"])) ?></td>
+                    <td><?=htmlspecialchars($menu["price_menu"]) ?> €</td>
+                    <td><a href="<?=$router->generatePath("resto_menu_showOne") ?>?id=<?=$menu['menu_id'] ?>"> <i class="fas fa-plus-circle"></i> Voir ce menu</a></td>
+                    <td><?php if($userSession->isAdmin()): ?>
+
+                            <button id="removeInput-<?=htmlspecialchars($menu["menu_id"])?>" class="remove-button" data-action="<?= $router->generatePath("resto_menu_remove")?>" data-id = "<?= $menu["menu_id"]?>">Supprimer</button>
+                                <a href="<?=$router->generatePath("resto_menu_update") ?>?id=<?=htmlspecialchars($menu['menu_id']) ?>">Modifier le menu</a>
 
 
-                <h2><?=htmlspecialchars($menu["title"] )?></h2>
-                <?php foreach ($allPlats[$menu['menu_id']] as $plat) : ?>
 
-                    <P> <?=htmlspecialchars($plat['product'] ) ?></P>
+                        <?php else: ?>
+                    <td class="order-block">
+                        <p>Quantité</p>
+                        <select class="quantity">
+                            <?php for($i=1; $i<=10; $i++): ?>
+                                <option value="<?= $i ?>"><?= $i ?></option>
+                            <?php endfor; ?>
+                        </select>
+                        <button>
+                            <a href="#" id="cartInput-<?=htmlspecialchars($menu["menu_id"])?>" class="add-to-basket" data-action="<?= $router->generatePath("resto_order_add")?>" data-id="<?=htmlspecialchars($menu["menu_id"])?>">
+                                <i class="fas fa-shopping-cart"></i>Ajouter au panier
+                            </a>
+
+                        </button>
+
+                    </td>
+                    <?php endif; ?>
+                </tr>
                 <?php endforeach; ?>
+            </table>
 
-                <p><?=nl2br(htmlspecialchars($menu["content"])) ?></p>
-                <p><?=htmlspecialchars($menu["price_menu"]) ?> € </p>
-                <p>valable du <?= (new DateTime($menu["startDate"]))->format("d/m/Y"); ?> au <?= (new DateTime($menu["endDate"]))->format("d/m/Y"); ?></p>
-                <form method="get" action="<?=$router->generatePath("resto_Order_add")?>">
-                    <label>Quantité</label>
-                    <input type="number" name="quantity" id="quantity">
-                    <input name="id"  value="<?=$menu['menu_id']?>" hidden="hidden" class="form-control" >
-                    <input type="submit" value="ajouter au panier" >
-                </form>
-                <a  href="<?=$router->generatePath("resto_Order_add")?>?id=<?=$menu['menu_id'] ?>"  class="btn btn-info">Commander ce menu</a><br>
-                <?php if($userSession->isAdmin()): ?>
-                <button id="removeInput-<?= $menu["menu_id"]?>" class="remove-button" data-action="<?= $router->generatePath("resto_menu_remove")?>" data-id = "<?= $menu["menu_id"]?>">Supprimer</button>
-                <!--<a href="<?/*=$router->generatePath("resto_menu_delete") */?>?id=<?/*=$menu['menu_id'] */?>">Supprimer le plat</a>-->
-                <br>
-                <a href="<?=$router->generatePath("resto_menu_update") ?>?id=<?=$menu['menu_id'] ?>">Modifier le menu</a>
-                 <?php endif; ?>
-                <a href="<?=$router->generatePath("resto_menu_showOne") ?>?id=<?=$menu['menu_id'] ?>">Voir le menu</a>
-                <a href="<?=$router->generatePath("resto_reviews_create") ?>?id=<?=$menu['menu_id'] ?>">ecrit un commentaire</a>
-
-            </div>
-        <?php endforeach; ?>
         </div>
 
-        <?php include $this->viewPath."asideView.phtml"; ?>
-    </div>
+<!--        --><?php //include $this->viewPath."asideView.phtml"; ?>
+
 
 </section>
 
+<script src="<?= $router->getWwwPath() ?>/js/index.js"></script>
+<script src="<?= $router->getWwwPath() ?>/js/validationForm.js"></script>
 

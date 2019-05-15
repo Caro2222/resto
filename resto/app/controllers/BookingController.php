@@ -4,7 +4,7 @@
 class BookingController
 {
     private $seatMax = 80;
-    private $seatDispo=0;
+    public $seatDispo=0;
 
     public function createAction()
     {
@@ -32,17 +32,17 @@ class BookingController
                 $error = true;
 
             }
-
-                $endTab = explode('-', ($_POST['date']));
-                $end = mktime(0, 0, 0, $endTab[1], $endTab[2], $endTab[0]);
-                $now = mktime(0, 0, 0, date('n'), date('j'), date('y'));
-
-                if ($now > $end) {
-                    $flashBag->addMessage("la date que vous avez entrer est depassée");
-                    $error = true;
-
-                }
-
+//            if($_POST['date']) {
+//                $endTab = explode('-', ($_POST['date']));
+//                $end = mktime(0, 0, 0, $endTab[1], $endTab[2], $endTab[0]);
+//                $now = mktime(0, 0, 0, date('n'), date('j'), date('y'));
+//
+//                if ($now > $end) {
+//                    $flashBag->addMessage("la date que vous avez entrer est depassée");
+//                    $error = true;
+//
+//                }
+//            }
             if ($error) {
 
                 return ["redirect" => "resto_booking"];
@@ -76,45 +76,7 @@ class BookingController
                             'folder'=>"Booking",
                             "file"=>'create',
                           ],
-
-        ];
-
-    }
-
-    public function showByUserAction()
-    {
-        $userSession = new UserSession();
-        $model = new BookingModel();
-        $flashBag = new Flashbag();
-        if(!$userSession->isAuthenticated())
-        {
-            $flashBag->addMessage("Veuillez vous connecter pour voir votre profil") ;
-            return ["redirect" => "resto_user_login"];
-        }
-
-            $userId = $userSession->getId();
-            $allResa = $model->showByUser($userId);
-
-
-      foreach ($allResa as $resa)
-      {
-          if($resa['cancelled']==1)
-          {
-              $this->seatDispo+=$resa['placesDemandees'];
-              if($this->seatDispo>80)
-              {
-                  $this->seatDispo=80;
-              }
-
-          }
-      }
-        return[
-            'template'=>[
-                'folder'=>"User",
-                "file"=>'profil',
-            ],
-            'allResa'=>$allResa,
-            'seatDispo'=>$this->seatDispo
+            "title"=>'reservation',
         ];
 
 

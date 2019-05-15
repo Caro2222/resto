@@ -19,7 +19,7 @@
     </div>
     <div class="form-group">
         <?php if($plat['photo']): ?>
-        <img src="<?php $plat['photo']  ?>">
+        <img src="<?= $router->getWwwPath() ?>/upload/photosPlats/<?=$plat['photo'] ?> ">
         <input type="checkbox" name="img_suppr">
         <label>Supprimer l'image</label>
         <?php else : ?>
@@ -42,3 +42,4 @@
     <input name="id"  value="<?=$plat['plates_id']?>" hidden="hidden" class="form-control" >
     <input type="submit" value="modifier" >
 </form>
+<script src="<?= $router->getWwwPath() ?>/js/validationForm.js"></script>

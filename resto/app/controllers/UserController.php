@@ -1,5 +1,5 @@
 <?php
- class UserController
+ class UserController extends BookingController
  {
 
 
@@ -159,6 +159,77 @@
 
         return [ "redirect" => "resto_user_profil" ];
     }
+
+     public function showByUserAction()
+     {
+         $userSession = new UserSession();
+         $model = new BookingModel();
+         $modelOrder = new OrderModel();
+         $flashBag = new Flashbag();
+         if(!$userSession->isAuthenticated())
+         {
+             $flashBag->addMessage("Veuillez vous connecter pour voir votre profil") ;
+             return ["redirect" => "resto_user_login"];
+         }
+
+         $userId = $userSession->getId();
+         $allResa = $model->showByUser($userId);
+
+
+         foreach ($allResa as $resa)
+         {
+             if($resa['cancelled']==1)
+             {
+                 $this->seatDispo+=$resa['placesDemandees'];
+                 if($this->seatDispo>80)
+                 {
+                     $this->seatDispo=80;
+                 }
+
+             }
+         }
+
+
+         $model = new OrderModel();
+         $idOrder = $model->getUserBasketId($userSession->getId()) ;
+
+         $orderModel = new OrderModel();
+         $allOrders = $orderModel->showAll($userSession->getId()) ;
+
+         $allOrder = $orderModel->showAllMenuByOrder($userSession->getId()) ;
+
+         $allMenus = [] ;
+
+
+         foreach ($allOrder as $order)
+         {
+             $allMenus[$order['order_id']][] = [
+                 "title" => $order['title'],
+                 "quantityOrdered" => $order['quantityOrdered'],
+                 "priceEach" => $order['priceEach'],
+
+
+             ] ;
+         }
+
+
+
+         return[
+             'template'=>[
+                 'folder'=>"User",
+                 "file"=>'profil',
+             ],
+             'allResa'=>$allResa,
+             'seatDispo'=>$this->seatDispo,
+             "allOrders" => $allOrders,
+             "idOrder" => $idOrder,
+            "allMenus"=>$allMenus
+         ];
+
+
+
+
+     }
 
 
 

@@ -7,8 +7,8 @@
     <div class="form-group ">
         <?php foreach($allPlats as $plat) :?>
 
-            <input  type="checkbox" id="plates" name="plates[]" value="<?= $plat["plates_id"] ?>" >
-            <label  for="<?=$plat["plates_id"] ?>"><?=$plat['product'] ?></label><br>
+            <input  type="checkbox" id="plates" name="plates[]" value="<?= htmlspecialchars($plat["plates_id"]) ?>" >
+            <label  for="<?=htmlspecialchars($plat["plates_id"]) ?>"><?=htmlspecialchars($plat['product']) ?></label><br>
 
         <?php endforeach; ?>
     </div>
@@ -35,3 +35,9 @@
     </div>
     <input class="btn btn-info" type="submit" value="sauver">
 </form>
+
+<script src="<?= $router->getWwwPath() ?>/js/moment.js"> </script>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="<?= $router->getWwwPath() ?>/js/validationForm.js"></script>

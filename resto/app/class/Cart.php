@@ -13,30 +13,39 @@ class Cart
             session_start();
         }
 
-    }
-
-    public function addCart($id)
-    {
         if (empty($_SESSION['cart'])) {
-         $_SESSION['cart'] = [];
+            $_SESSION['cart'] = [];
         }
 
-        array_push($_SESSION['cart'], $id);
-        return $_SESSION['cart'];
-
-
     }
-    public function getQuantity($quantity)
+
+
+
+    public function addMenu($menu_id, $quantity)
     {
-        array_push($_SESSION['cart']['quantity'], $quantity);
-        return $_SESSION["cart"]["quantity"];
+
+        $_SESSION['cart'][$menu_id] += $quantity;
+        return $_SESSION['cart'];
     }
 
-    public function count(){
-        return array_sum($_SESSION['panier']);
-    }
-    public function del($menu_id){
+    public function del($menu_id)
+    {
         unset($_SESSION['panier'][$menu_id]);
+    }
+
+    public function delAll()
+    {
+        $_SESSION['cart'] = [];
+    }
+
+    public function format()
+    {
+        $orderTab = [];
+        foreach ( $_SESSION['cart'] as $menu_id => $quantity)
+        {
+            $orderTab[] ['menu'=>$id, "quantity"=>$quantity] ;
+        }
+
     }
 }
 

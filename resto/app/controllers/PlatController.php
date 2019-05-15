@@ -32,14 +32,14 @@ class PlatController
             $model = new MenuModel();
             $allMenu =$model->findMenuByPlate($_GET['id']);
 
-//            $allMenu =[];
-//            foreach ($allMenu as $menu)
-//            {
-//                $plat[$plat['plates_id']][] = [
-//                    "menu_id" => $menu['plates_id'],
-//                    "product" => $menu['product'],
-//                ] ;
-//            }
+            $allMenu =[];
+            foreach ($allMenu as $menu)
+            {
+                $plat[$plat['plates_id']][] = [
+                    "menu_id" => $menu['plates_id'],
+                    "product" => $menu['product'],
+                ] ;
+            }
 
 
             return [
@@ -124,9 +124,10 @@ class PlatController
 
                 if(isset($_FILES["photo"]) && $_FILES["photo"]["error"]>=0)
                 {
+
                     $extension= (substr($_FILES['photo']['name'],
                         strpos($_FILES["photo"]["name"],'.',strlen($_FILES['photo']['name'])-5)));
-                    if(in_array($extension,$allowedExtensions))
+                    if(in_array($extension,$this->allowedExtensions))
                     {
 
 

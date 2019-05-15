@@ -1,11 +1,14 @@
+<div class="container ">
+
 <h2>Mon compte</h2>
-<?php var_dump($seatDispo); ?>
+
 <p>Prenom : <?=  $userSession->getFirstName(); ?> </p>
 <p>nom : <?=  $userSession->getLastName(); ?></p>
 <p>email : <?=  $userSession->getEmail(); ?> </p>
 
-
-<table class="table row ">
+<h3>Mes réservation</h3>
+    <?php if($allResa): ?>
+<table class="table row col-md-10 justify-content-center">
     <tr>
         <th>date de la reservation</th>
         <th>service</th>
@@ -14,20 +17,63 @@
     <?php foreach ($allResa as $resa): ?>
 
     <tr>
-        <td><?= $resa['dateResa'] ?></td>
-        <td><?= $resa['service'] ?></td>
-        <td><?= $resa['placesDemandees'] ?></td>
+        <td><?=htmlspecialchars($resa['dateResa']) ?></td>
+        <td><?=htmlspecialchars($resa['service']) ?></td>
+        <td><?=htmlspecialchars($resa['placesDemandees'])?></td>
         <?php if($resa['cancelled']== 0): ?>
-        <td><a href="<?=$router->generatePath("resto_user_update") ?>?booking_id=<?=$resa['booking_id'] ?>">annulé la reservation</a> </td>
+        <td><a href="<?=$router->generatePath("resto_user_update") ?>?booking_id=<?=htmlspecialchars($resa['booking_id']) ?>">annulé la reservation</a> </td>
         <?php else: ?>
         <td>Reservation annulée</td>
         <?php endif; ?>
-        <td><?php $endTab =explode('-',$resa['dateResa']);
+        <td><?php $endTab =explode('-',htmlspecialchars($resa['dateResa']));
                     $end = mktime(0,0,0,$endTab[1],$endTab[2],$endTab[0]);
                     $now= mktime(0,0,0,date('n'),date('j'),date('y'));
                     if($now>$end) : ?> date depassée <?php endif; ?></td>
     </tr>
     <?php endforeach; ?>
-</table>
 
+</table>
+<?php else : ?>
+    <p>Vous n'avez pas encore de réservation</p>
+    <?php endif; ?>
+<h3>Mes commandes</h3>
+<table class="table row col-md-10 justify-content-center">
+    <tr>
+        <td>date de commande</td>
+        <td>date de livraison</td>
+        <td>menus commandés</td>
+
+        <td>Montant total</td>
+    </tr>
+    <?php foreach ($allOrders as $order ): ?>
+    <tr>
+
+        <td>  <?= (new DateTime(htmlspecialchars($order["OrdersDate"])))->format("d/m/Y"); ?></td>
+        <td><?= (new DateTime(htmlspecialchars($order["DeliveryDate"])))->format("d/m/Y"); ?></td>
+        <td>
+            <table class="table table-sm">
+                <tr>
+                    <td>menu</td>
+                    <td>quantité</td>
+                    <td>prix d'un menu </td>
+                </tr>
+        <?php forEach ($allMenus[$order['order_id']] as $menu):?>
+
+            <tr>
+                <td><?= $menu['title'] ?></td>
+                <td> <?=$menu['quantityOrdered'] ?> €</td>
+
+                <td> <?=$menu['priceEach'] ?> €</td>
+            </tr>
+
+          <?php endforeach; ?>
+                </table>
+        <td><?=$order['total'] ?> €</td>
+
+
+
+    </tr>
+    <?php endforeach; ?>
+</table>
+</div>
 

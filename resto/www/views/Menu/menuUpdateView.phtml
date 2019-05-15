@@ -5,41 +5,47 @@
 
     <div  class="form-group row">
         <label for="title">Titre du menu</label>
-        <input type="text" name="title" id="title" value="<?=$menu["title"] ?>"  >
+        <input type="text" name="title" id="title" value="<?=htmlspecialchars($menu["title"]) ?>"  >
     </div>
     <div class="form-group">
         <label for="content">Description du menu</label>
-        <textarea  class="form-control" id="content" name="content"><?=$menu["content"] ?></textarea>
+        <textarea  class="form-control" id="content" name="content"><?=htmlspecialchars($menu["content"]) ?></textarea>
     </div>
     <div class="form-group">
     <p>choix des plats :</p>
 
     <?php foreach ($menuPlats as $menuPlat): ?>
-        <input class="form-control" type="checkbox" name="products[]" id="cat-<?=$menuPlat["plates_id"]?>"
+        <input class="form-control" type="checkbox" name="products[]" id="cat-<?=htmlspecialchars($menuPlat["plates_id"])?>"
 
             <?php if( $menuPlat['checked']): ?>
                 checked="checked"
-            <?php endif ?> value="<?=$menuPlat["plates_id"] ?> ">
-        <label for="plat-<?=$menuPlat["plates_id"] ?>" ><?= $menuPlat["product"] ?></label>
+            <?php endif ?> value="<?=htmlspecialchars($menuPlat["plates_id"]) ?> ">
+        <label for="plat-<?=htmlspecialchars($menuPlat["plates_id"]) ?>" ><?=htmlspecialchars($menuPlat["product"]) ?></label>
         <br>
     <?php endforeach ?>
 
     </div>
     <div class="form-group">
         <label for="price_menu">prix du menu</label>
-        <input class="form-control"  type="text" name="price_menu" id="price_menu" value="<?=$menu["price_menu"]?>">
+        <input class="form-control"  type="text" name="price_menu" id="price_menu" value="<?=htmlspecialchars($menu["price_menu"])?>">
     </div>
     <div class="form-group">
         <label for="startDate">date du debut</label>
-        <input class="form-control" type="date" name="startDate" id="startDate" value="<?=$menu["startDate"] ?>" >
+        <input class="form-control" type="date" name="startDate" id="startDate" value="<?=htmlspecialchars($menu["startDate"]) ?>" >
     </div>
     <div class="form-group">
         <label for="endDate">date de fin</label>
-        <input class="form-control" type="date" name="endDate" id="endDate" value="<?=$menu["endDate"]?>" >
+        <input class="form-control" type="date" name="endDate" id="endDate" value="<?=htmlspecialchars($menu["endDate"])?>" >
     </div>
     <br>
-    <input class="form-control" name="id"  value="<?=$menu['menu_id']?>" hidden="hidden"  >
+    <input class="form-control" name="id"  value="<?=htmlspecialchars($menu['menu_id'])?>" hidden="hidden"  >
     <input type="submit" value="sauver">
     </div>
 
 </form>
+
+<script src="<?= $router->getWwwPath() ?>/js/moment.js"> </script>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="<?= $router->getWwwPath() ?>/js/validationForm.js"></script>

@@ -19,6 +19,7 @@ class MenuController
                 $allPlats[$plat['menu_id']][] = [
                                                     "plates_id" => $plat['plates_id'],
                                                     "product" => $plat['product'],
+                                                  
                                               ] ;
         }
 

@@ -27,7 +27,7 @@ class Router
 
                     "/user/profil"
                     =>[
-                        "controller"=>"Booking",
+                        "controller"=>"User",
                         "method"=>"showByUser",
                         "name"=>'resto_user_profil'
                     ],
@@ -186,20 +186,61 @@ class Router
 
                     ],
 
-                    "/order/create"
+
+                    "/user/cart"
                     =>[
-                        "controller"=>"Order",
-                        "method"=>"create",
-                        "name"=>'resto_Order_create',
+                        "controller"=>"User",
+                        "method"=>"removeCart",
+                        "name"=>'resto_remove_cart',
 
                     ],
-                    "/order/add"
-                    =>[
-                        "controller"=>"Order",
-                        "method"=>"add",
-                        "name"=>'resto_Order_add',
 
+                    "/mon-panier"
+                    => [
+                        "controller" => "Order", //Menus
+                        "method"     => "showAllByUser",
+                        "name"       => "resto_order_showAll",
                     ],
+                    "/order/ajouter"
+                    => [
+                        "controller" => "Order", //Menus
+                        "method"     => "addOrderLine",
+                        "name"       => "resto_order_add",
+                    ],
+                    "/order/update-item-quantity"
+                    => [
+                        "controller" => "Order", //Menus
+                        "method"     => "updateItemQuantity",
+                        "name"       => "resto_order_updateItemQuantity",
+                    ],
+                    "/order/remove-item"
+                    => [
+                        "controller" => "Order", //Menus
+                        "method"     => "removeItem",
+                        "name"       => "resto_order_removeItem",
+                    ],
+                    "/order/empty-basket"
+                    => [
+                        "controller" => "Order", //Menus
+                        "method"     => "emptyBasket",
+                        "name"       => "resto_order_emptyBasket",
+                    ],
+                    "/order/confirm"
+                    => [
+                        "controller" => "Order", //Menus
+                        "method"     => "confirmBasket",
+                        "name"       => "resto_order_confirmBasket",
+                    ],
+                    "/order/confirmByUser"
+                    => [
+                        "controller" => "Order", //Menus
+                        "method"     => "confirmByUser",
+                        "name"       => "resto_profil",
+                    ],
+
+
+
+
 
                 ];
 

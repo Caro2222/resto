@@ -8,17 +8,19 @@
             <td>quantité</td>
         </tr>
 
-    <?php foreach ($orders as $order): ?>
+
+        <?php foreach ($orders as $order): ?>
     <tr>
 
         <td><?= $order['title'] ?></td>
-        <td><form method="post" action="<?=$router->generatePath("resto_Order_create")?>">
-                <label>quantity</label>
-                <input type="number" name="quantity[]" id="quantity" placeholder="">
+        <td><form method="post" action="<?=$router->generatePath("resto_Order_add")?>">
+                <label>quantité</label>
+                <input type="number" name="quantity" id="quantity" placeholder="">
 
             </td>
+        <input name="id[]"  value="<?=htmlspecialchars($order['menu_id'])?>" hidden="hidden"  >
+
     </tr>
-        <input type="submit" value="<?=$order['menu_id']?>" hidden="hidden">
     <?php endforeach ?>
 
     </table>
@@ -35,6 +37,8 @@
 
         </select>
     </div>
+
+    <a href="<?=$router->generatePath("resto_Order_add")?>" >Effacer la commande</a>
     <input type="submit" value="commander"  class="btn btn-info">
 
 </form>
